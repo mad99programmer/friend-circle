@@ -45,15 +45,7 @@ def create_vent(vent: VentCreate, db: Session = Depends(get_db)):
 
     return new_vent
 
-@router.get("/")
-def list_vents(db: Session = Depends(get_db)):
-    vents = (
-        db.query(models.Vent)
-        .filter(models.Vent.is_hidden == False)
-        .order_by(models.Vent.created_at.desc())
-        .all()
-    )
-    return vents
+
 
 @router.get("/", response_model=list[VentOut])
 def list_vents(limit: int = Query(20, ge=1, le=50),
