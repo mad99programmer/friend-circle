@@ -34,6 +34,12 @@ class Comment(Base):
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
     )
+    parent_comment_id = Column(
+    BigInteger,
+    ForeignKey("comments.id", ondelete="CASCADE"),
+    nullable=True
+    )
+
     content = Column(Text, nullable=False)
     is_hidden = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
